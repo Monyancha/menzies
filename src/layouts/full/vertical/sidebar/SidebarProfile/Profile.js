@@ -1,22 +1,17 @@
 import React from 'react';
 import { Box, Avatar, Typography, IconButton, Tooltip, useMediaQuery } from '@mui/material';
-import { useSelector } from '../../../../../store/Store';
-import { IconPower } from '@tabler/icons-react';
-import { AppState } from '../../../../../store/Store';
-import Link from 'next/link';
-import { useSession } from 'next-auth/react';
-import { signOut } from "next-auth/react";
+import { useSelector } from 'react-redux'; // Assuming your store is using Redux
+import { useSession, signOut } from 'next-auth/react';
 import { showNotification } from '@mantine/notifications';
-import { IconUser } from '@tabler/icons-react';
+import { IconPower, IconUser } from '@tabler/icons-react';
+import Link from 'next/link';
 
-
-export const Profile = () => {
+export default function Profile() {
   const { data: session, status } = useSession();
-  const customizer = useSelector((state: AppState) => state.customizer);
-  const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up('lg'));
+  const customizer = useSelector((state) => state.customizer);
+  const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
   const hideMenu = lgUp ? customizer.isCollapse && !customizer.isSidebarHover : '';
 
-  //
   function signUserOut() {
     signOutHelper();
   }
@@ -24,15 +19,15 @@ export const Profile = () => {
   console.log("Session Monyancha", session);
 
   function signOutHelper() {
-      let callbackUrl = "/";
+    let callbackUrl = "/";
 
-      signOut({ callbackUrl });
+    signOut({ callbackUrl });
 
-      //Show Notification
-      showNotification({
-        title: "Success",
-        message: "Logout success, redirecting you to login...",
-        color: "green",
+    // Show Notification
+    showNotification({
+      title: "Success",
+      message: "Logout success, redirecting you to login...",
+      color: "green",
     });
   }
 
@@ -41,11 +36,11 @@ export const Profile = () => {
       display={'flex'}
       alignItems="center"
       gap={2}
-      sx={{ ml: 3, mr: 3, mt: 2, p: 1, bgcolor: `${'primary.light'}` }}
+      sx={{ ml: 3, mr: 3, mt: 2, p: 1, bgcolor: 'primary.light' }}
     >
       {!hideMenu ? (
         <>
-          <Avatar alt="Image" src={"/images/profile/user-1.jpg"} sx={{height: 40, width: 40}} />
+          <Avatar alt="Image" src={"/images/profile/user-1.jpg"} sx={{ height: 40, width: 40 }} />
 
           <Box>
             <Typography variant="h6" color="#ffffff">{session?.user?.name ?? '-'}</Typography>
@@ -72,4 +67,4 @@ export const Profile = () => {
       )}
     </Box>
   );
-};
+}
