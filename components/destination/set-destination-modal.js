@@ -11,7 +11,7 @@ import store from "../../src/store/Store";
 import Link from "next/link";
 import { getLists, getDashboard } from "../../src/store/cargo/cargo-slice";
 
-function SetDestinationModal({item}) {
+function SetDestinationModal({item, drivers, gates}) {
   const { data: session, status } = useSession();
   const [opened, setOpened] = useState(false);
 
@@ -20,15 +20,33 @@ function SetDestinationModal({item}) {
 
   const [loading, setLoading] = useState(false);
   const [destination, setDestination] = useState("");
+  const [driverId, setDriverId] = useState("");
+  const [gateId, setGateId] = useState("");
 
   // Handler function to update destination state when an option is selected
   const handleDestinationChange = (selectedDestination) => {
     setDestination(selectedDestination);
   };
 
+  const handleGateChange = (selectedGate) => {
+    setGate(selectedGate);
+  };
+
   function clearForm() {
     setDestination("");
   }
+
+  const gatesList =
+    gates?.map((item) => ({
+      value: item.id,
+      label: item.name,
+    })) ?? [];
+
+  const driversList =
+    drivers?.map((item) => ({
+      value: item.id,
+      label: item.first_name +" "+ item.last_name,
+    })) ?? [];    
 
   const  handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,6 +67,8 @@ function SetDestinationModal({item}) {
     formData.append("destination", destination);
     formData.append("id", id);
     formData.append("uld", uld);
+    formData.append("driver_id", driverId);
+    formData.append("gate_id", gateId);
 
 
     try {
@@ -124,6 +144,27 @@ function SetDestinationModal({item}) {
         searchable
         value={destination} // Pass the selected value to the Select component
         onChange={handleDestinationChange}
+      />
+
+      <Select
+        label="Driver"
+        placeholder="Driver"
+        data={driversList}
+        onChange={setDriverId}
+        value={driverId}
+        searchable
+        clearable
+      />
+
+
+     <Select
+        label="Gate"
+        placeholder="Gate"
+        data={gatesList}
+        onChange={setGateId}
+        value={gateId}
+        searchable
+        clearable
       />
 
 

@@ -55,6 +55,8 @@ export default function Accepted() {
   );
   const items = useSelector((state) => state.cargo.getAccepted);
 
+  console.log("bavo", items)
+
   const isLoading = itemStatus === "loading";
 
   useEffect(() => {
@@ -164,9 +166,9 @@ export default function Accepted() {
                   items?.data?.map((item) => (
                     <tr key={item?.id} className="border-b" >
                       <td>
-                        {item?.type_id === 0 && "Unknown"}
-                        {item?.type_id === 1 && "Known"}
-                        {item?.type_id === 3 && "General"}
+                        {item?.type_id === 0 && "Known"}
+                        {item?.type_id === 1 && "Unknown"}
+                        {item?.type_id === 2 && "General"}
                       </td>
                       <td>{item?.shipper_name}</td>
                       <td>{item?.created_by.first_name} {item?.created_by.last_name}</td>

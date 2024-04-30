@@ -4,11 +4,10 @@ import Logo from '../../shared/logo/Logo';
 import { useSelector, useDispatch } from '../../../../store/Store';
 import { hoverSidebar, toggleMobileSidebar } from '../../../../store/customizer/CustomizerSlice';
 import Scrollbar from '../../../../components/custom-scroll/Scrollbar';
+import { Profile } from './SidebarProfile/Profile';
 import { AppState } from '../../../../store/Store';
 import { Button, Select } from '@mantine/core';
 import Link from 'next/link';
-import Profile from './SidebarProfile/Profile';
-
 
 const Sidebar = () => {
   const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up('lg'));

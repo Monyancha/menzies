@@ -20,6 +20,12 @@ function ScreenCargoModal({item}) {
   const [nature, setNature] = useState("");
   const [pieces, setPieces] = useState("");
 
+  const handleChange = (e) => {
+    // Remove non-numeric characters using a regular expression
+    const value = e.currentTarget.value.replace(/\D/g, '');
+    setPieces(value);
+  };
+
   function clearForm() {
     setAwb("");
     setNature("");
@@ -148,13 +154,18 @@ function ScreenCargoModal({item}) {
             placeholder="No. of Pieces"
             label="No. of Pieces"
             type="pieces"
+            withAsterisk
+            inputMode="numeric"
             value={pieces}
-            onChange={(e) => setPieces(e.currentTarget.value)}
+            onChange={handleChange}
           />
 
 
-        <section className="flex justify-end space-y-2 p-3 rounded-lg my-3">
-          <Button variant="outline" onClick={handleSubmit} loading={loading}>
+        <section className="flex justify-between p-3 rounded-lg my-3"> {/* Change justify-end to justify-between */}
+          <Button variant="outline" color="green" onClick={() => setOpened(false)}>{/* Add Cancel button */}
+            Cancel
+          </Button>
+          <Button variant="outline" color="purple" onClick={handleSubmit} loading={loading}>
             Submit
           </Button>
         </section>

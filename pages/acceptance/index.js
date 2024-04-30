@@ -131,7 +131,7 @@ export default function Acceptance() {
           <div className="flex w-full items-stretch flex-wrap mb-3">
           <DashboardCard title="Awaiting Acceptance" value={dashboard?.awaiting ?? 0} color="blue" />
           <DashboardCard title="Total Cargo" value={dashboard?.cargo ?? 0} color="orange" />
-          <DashboardCard title="Total Check In" value={dashboard?.visits_in ?? 0} color="purle" />
+          <DashboardCard title="Total Check In" value={dashboard?.visits_in ?? 0} color="purple" />
           <DashboardCard title="Total Visits" value={dashboard?.visits ?? 0} color="red" />
         </div>
         </div>

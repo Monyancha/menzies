@@ -79,14 +79,14 @@ function NewImportModal() {
       return;
     }
 
-    if (!destination) {
-      showNotification({
-        title: "Error",
-        message: "Destination is required!",
-        color: "red",
-      });
-      return;
-    }
+    // if (!destination) {
+    //   showNotification({
+    //     title: "Error",
+    //     message: "Destination is required!",
+    //     color: "red",
+    //   });
+    //   return;
+    // }
 
     if (!weight) {
       showNotification({
@@ -100,15 +100,15 @@ function NewImportModal() {
 
     const formData = new FormData();
     formData.append("origin", origin);
-    formData.append("cargo_id", cargoId);
-    if (destination) formData.append("destination", destination);
+    // formData.append("cargo_id", cargoId);
+    // if (destination) formData.append("destination", destination);
     if (weight) formData.append("weight", weight);
     if (remarks) formData.append("remarks", remarks);
     if (form) formData.append("awbs", JSON.stringify(form.awbs));
 
     try {
       const API_URL = process.env.NEXT_PUBLIC_API_URL;
-      const endpoint = `${API_URL}/palleting`;
+      const endpoint = `${API_URL}/receiveimport`;
 
       const accessToken = session.user.accessToken;
 
@@ -228,7 +228,7 @@ function NewImportModal() {
                           <div key={awbIndex}>
                             <TextInput
                               mb="xs"
-                              label="AWB Number"
+                              label="ULD Number"
                               id={`awb-number-${awbIndex}`}
                               editable={false}
                               value={awb.number}
@@ -244,7 +244,7 @@ function NewImportModal() {
                                 <div className="mb-5" key={uldIndex}>
                                   <TextInput
                                     mb="xs"
-                                    label="ULD Number"
+                                    label="AWB Number"
                                     id={`uld-number-${awbIndex}-${uldIndex}`}
                                     value={uld.number}
                                     onChange={(e) => {

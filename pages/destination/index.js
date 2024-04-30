@@ -70,7 +70,7 @@ export default function Palleted() {
     }
 
     store.dispatch(getLists(params));
-  }, [session, status, searchTerm]);
+  }, [session, status]);
 
   function onPaginationLinkClicked(page) {
     if (!page || !session) {
@@ -89,6 +89,10 @@ export default function Palleted() {
 
 
   const pallets = items?.lists?.palletUlds;
+  const gates = items?.lists?.gates;
+  const drivers = items?.lists?.drivers;
+
+  console.log("gates", gates)
 
      //Get Dashboard Stats
     const dashboard = useSelector((state) => state.cargo.getDashboard);
@@ -170,7 +174,7 @@ export default function Palleted() {
                       <td>{item?.weight}</td>
                       <td>{new Date(item?.created_at).toLocaleString()}</td>
                       <td className="text-right">
-                        <SetDestinationModal item={item} />
+                        <SetDestinationModal item={item} gates={gates} drivers={drivers}/>
                       </td>  
   
                     </tr>

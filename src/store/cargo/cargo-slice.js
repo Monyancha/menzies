@@ -17,6 +17,9 @@ const initialState = {
   getAcceptance: null,
   getAcceptanceStatus: "idle",
 
+  getAccepted: null,
+  getAcceptedStatus: "idle",
+
   //getDashboard
   getDashboard: null,
   getDashboardStatus: "idle",
@@ -417,6 +420,18 @@ const cargoSlice = createSlice({
       .addCase(getAcceptance.fulfilled, (state, action) => {
         state.getAcceptanceStatus = "fulfilled";
         state.getAcceptance = action.payload;
+      })
+
+      // Accepted Data
+      .addCase(getAccepted.pending, (state) => {
+        state.getAcceptedStatus = "loading";
+      })
+      .addCase(getAccepted.rejected, (state) => {
+        state.getAcceptedStatus = "rejected";
+      })
+      .addCase(getAccepted.fulfilled, (state, action) => {
+        state.getAcceptedStatus = "fulfilled";
+        state.getAccepted = action.payload;
       })
 
       // Dashboard Data

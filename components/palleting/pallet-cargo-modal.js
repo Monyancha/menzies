@@ -288,9 +288,11 @@ function PalletCargoModal({item}) {
                     </>
                 </SimpleGrid>
 
-
-        <section className="flex justify-end space-y-2 p-3 rounded-lg my-3">
-          <Button variant="outline" onClick={handleSubmit} loading={loading}>
+        <section className="flex justify-between p-3 rounded-lg my-3"> {/* Change justify-end to justify-between */}
+          <Button variant="outline" color="green" onClick={() => setOpened(false)}>{/* Add Cancel button */}
+            Cancel
+          </Button>
+          <Button variant="outline" color="purple" onClick={handleSubmit} loading={loading}>
             Submit
           </Button>
         </section>

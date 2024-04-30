@@ -153,12 +153,12 @@ export default function Menuitems() {
             icon: IconPoint,
             href: '/acceptance/accepted',
           },
-          {
-            id: uniqueId(),
-            title: 'Rejected Cargo',
-            icon: IconPoint,
-            href: '/acceptance/rejected',
-          },
+          // {
+          //   id: uniqueId(),
+          //   title: 'Rejected Cargo',
+          //   icon: IconPoint,
+          //   href: '/acceptance/rejected',
+          // },
           
         ],
       },
@@ -352,12 +352,12 @@ export default function Menuitems() {
         icon: IconPoint,
         href: '/acceptance/accepted',
       },
-      {
-        id: uniqueId(),
-        title: 'Rejected Cargo',
-        icon: IconPoint,
-        href: '/acceptance/rejected',
-      },
+      // {
+      //   id: uniqueId(),
+      //   title: 'Rejected Cargo',
+      //   icon: IconPoint,
+      //   href: '/acceptance/rejected',
+      // },
       
     ],
   },

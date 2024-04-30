@@ -146,7 +146,7 @@ export default function ReceivedImports() {
                       <td>{item?.flight_number}</td>
                       <td>{item?.no_of_pieces}</td>
                       <td>{item?.weight}</td>
-                      <td>{item?.createdBy.first_name} {item?.createdBy.last_name}</td>                      
+                      <td>{item?.createdBy?.first_name} {item?.createdBy?.last_name}</td>                      
                       <td>{new Date(item?.created_at).toLocaleString()}</td>
                        <td className="text-right">
                         <Button size="xs" variant="outline">

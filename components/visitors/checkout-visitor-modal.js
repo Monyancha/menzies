@@ -113,8 +113,11 @@ function CheckoutVisitorModal({item}) {
           Do you want to checkout {item?.visitor?.first_name} {item?.visitor?.last_name} ?
         </Text>
 
-        <section className="flex justify-end space-y-2 p-3 rounded-lg my-3">
-          <Button variant="outline" onClick={handleSubmit} loading={loading}>
+        <section className="flex justify-between p-3 rounded-lg my-3"> {/* Change justify-end to justify-between */}
+          <Button variant="outline" color="green" onClick={() => setOpened(false)}>{/* Add Cancel button */}
+            Cancel
+          </Button>
+          <Button variant="outline" color="purple" onClick={handleSubmit} loading={loading}>
             Yes, Checkout
           </Button>
         </section>

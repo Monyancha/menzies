@@ -166,7 +166,7 @@ export default function IssuedUlds() {
                   issued.map((item) => (
                     <tr key={item?.id} className="border-b">
                       <td>{item?.uld_number}</td>
-                      <td>{item?.flight_number}</td>
+                      <td>{item?.destination}</td>
                       <td>{item?.tractor_regn}</td>
                       <td>{item?.created_by?.first_name} {item?.created_by?.last_name}</td>                      
                       <td>{new Date(item?.created_at).toLocaleString()}</td>

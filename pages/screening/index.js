@@ -128,10 +128,10 @@ export default function Screening() {
 
         <div className="w-full flex flex-wrap mt-2">
           <div className="flex w-full items-stretch flex-wrap mb-3">
-          <DashboardCard title="Awaiting Screening" value={dashboard?.awaiting ?? 0} color="brown" />
           <DashboardCard title="Awaiting Screening" value={dashboard?.pending_screens ?? 0} color="purple" />
           <DashboardCard title="Total Screened" value={dashboard?.screened ?? 0} color="green" />
           <DashboardCard title="Total Logged Out" value={dashboard?.logged_out ?? 0} color="blue" />
+          <DashboardCard title="Total Cargo" value={dashboard?.cargo ?? 0} color="brown" />
         </div>
         </div>
 
@@ -168,9 +168,9 @@ export default function Screening() {
                   screening.map((item) => (
                     <tr key={item?.id} className="border-b">
                       <td>
-                        {item?.cargo.type_id === 0 && "Unknown"}
-                        {item?.cargo.type_id === 1 && "Known"}
-                        {item?.cargo.type_id === 3 && "General"}
+                        {item?.cargo.type_id === 1 && "Unknown"}
+                        {item?.cargo.type_id === 0 && "Known"}
+                        {item?.cargo.type_id === 2 && "General"}
                       </td>
                       <td>{item?.cargo.shipper_name}</td>
                       <td>{item?.created_by.first_name} {item?.created_by.last_name}</td>
