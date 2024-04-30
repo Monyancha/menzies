@@ -70,7 +70,7 @@ export default function Palleted() {
     }
 
     store.dispatch(getLists(params));
-  }, [session, status]);
+  }, [session, status, searchTerm]);
 
   function onPaginationLinkClicked(page) {
     if (!page || !session) {
