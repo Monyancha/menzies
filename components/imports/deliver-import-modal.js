@@ -11,17 +11,17 @@ import store from "../../src/store/Store";
 import Link from "next/link";
 import { getLists } from "../../src/store/cargo/cargo-slice";
 
-function NewImportModal() {
+function DeliverImportModal() {
   const { data: session, status } = useSession();
   const [opened, setOpened] = useState(false);
 
 
   const [loading, setLoading] = useState(false);
-  const [fnumber, setFNumber] = useState("");
+  const [clearingCompany, setCompany] = useState("");
   const [pieces, setPieces] = useState("");
   const [weight, setWeight] = useState("");
-  const [nature, setNature] = useState("");
-  const [action, setAction] = useState("");
+  const [agentName, setAgent] = useState("");
+  const [nid, setNid] = useState("");
   const [remarks, setRemarks] = useState("");
    const [form, setForm] = useState({
     ulds: [
@@ -79,10 +79,10 @@ function NewImportModal() {
   };
 
   function clearForm() {
-    setFNumber("");
-    setNature("");
+    setCompany("");
+    setAgent("");
     setWeight("");
-    setNature("");
+    setNid("");
     setAction("");
     setRemarks("");
     setPieces("");
@@ -92,10 +92,10 @@ function NewImportModal() {
   const  handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!fnumber) {
+    if (!clearingCompany) {
       showNotification({
         title: "Error",
-        message: "Flight Number is required!",
+        message: "Clearing Company is required!",
         color: "red",
       });
       return;
@@ -119,19 +119,19 @@ function NewImportModal() {
       return;
     }
 
-    if (!nature) {
+    if (!agentName) {
       showNotification({
         title: "Error",
-        message: "Nature is required!",
+        message: "Agent Name is required!",
         color: "red",
       });
       return;
     }
 
-    if (!action) {
+    if (!nid) {
       showNotification({
         title: "Error",
-        message: "Action is required!",
+        message: "National ID Number is required!",
         color: "red",
       });
       return;
@@ -150,17 +150,17 @@ function NewImportModal() {
 
 
     const formData = new FormData();
-    formData.append("flight_number", fnumber);
+    formData.append("clearing_company", clearingCompany);
     formData.append("no_of_pieces", pieces);
     if (weight) formData.append("weight", weight);
-    if (action) formData.append("action", action);
-    if (nature) formData.append("nature_of_irregularity", nature);
+    if (agentName) formData.append("agent_name", agentName);
+    if (nid) formData.append("id_number", nid);
     if (remarks) formData.append("remarks", remarks);
     if (form) formData.append("ulds", JSON.stringify(form.ulds));
 
     try {
       const API_URL = process.env.NEXT_PUBLIC_API_URL;
-      const endpoint = `${API_URL}/receiveimport`;
+      const endpoint = `${API_URL}/deliverimport`;
 
       const accessToken = session.user.accessToken;
 
@@ -225,11 +225,11 @@ function NewImportModal() {
       >
  
         <TextInput
-            placeholder="Flight Number"
-            label="Flight Number"
+            placeholder="Clearing Company"
+            label="Clearing Company"
             withAsterisk
-            value={fnumber}
-            onChange={(e) => setFNumber(e.currentTarget.value)}
+            value={clearingCompany}
+            onChange={(e) => setCompany(e.currentTarget.value)}
           />
 
         <TextInput
@@ -250,19 +250,19 @@ function NewImportModal() {
           />
 
           <TextInput
-            placeholder="Nature of Irregularity"
-            label="Nature of Irregularity"
+            placeholder="Agent Name"
+            label="Agent Name"
             withAsterisk
-            value={nature}
-            onChange={(e) => setNature(e.currentTarget.value)}
+            value={agentName}
+            onChange={(e) => setAgent(e.currentTarget.value)}
           />
 
            <TextInput
-            placeholder="Action Taken"
-            label="Action Taken"
+            placeholder="National ID Number"
+            label="National ID Number"
             withAsterisk
-            value={action}
-            onChange={(e) => setAction(e.currentTarget.value)}
+            value={nid}
+            onChange={(e) => setNid(e.currentTarget.value)}
           />
 
           <Textarea
@@ -278,7 +278,7 @@ function NewImportModal() {
       <>
         {form.ulds.map((uld, uldIndex) => (
           <div key={uldIndex} className="col-lg-3 border m-4">
-            <label className="form-label" htmlFor={`uld-number-${uldIndex}`}>ULD Number:</label>
+            <label className="form-label" htmlFor={`uld-number-${uldIndex}`}>House AWB Number:</label>
             <TextInput
               type="text"
               list="ulds"
@@ -330,14 +330,14 @@ function NewImportModal() {
             mr="xs"
             onClick={removeUld}
           >
-            Remove ULD
+            Remove House AWB
           </Button>
           <Button
             variant="outline"
             size="xs"
             onClick={addUld}
           >
-            Add ULD
+            Add House AWB
           </Button>
         </div>
       </>
@@ -358,11 +358,11 @@ function NewImportModal() {
         size="xs"
         color="green"
       >
-        New Import
+        Deliver
       </Button>
 
     </>
   );
 }
 
-export default NewImportModal;
+export default DeliverImportModal;

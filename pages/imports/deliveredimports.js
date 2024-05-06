@@ -39,7 +39,7 @@ const BCrumb = [
     title: "Dashboard",
   },
   {
-    title: "Received Imports",
+    title: "Delivered Imports",
   },
 ];
 
@@ -88,7 +88,7 @@ export default function ReceivedImports() {
   }
 
 
-  const received = items?.lists?.receivedImports;
+  const received = items?.lists?.deliveredImports;
 
   const actions = (
     <div className="flex flex-row items-end gap-2">
@@ -99,14 +99,13 @@ export default function ReceivedImports() {
   return (
     <PageContainer>
       {/* breadcrumb */}
-      <Breadcrumb title="Received Imports" items={BCrumb} />
+      <Breadcrumb title="Delivered Imports" items={BCrumb} />
       {/* end breadcrumb */}
       <Box>
         <header className="flex flex-wrap justify-between items-end w-full">
           <div className="flex w-full md:w-6/12 flex-wrap"></div>
 
           <div className="flex space-x-2 w-full mt-3 md:mt-0 md:w-6/12 justify-center md:justify-end flex-wrap">
-             <NewImportModal /> 
             {/*<Button variant="outline" leftIcon={<IconPlus size={18} />}>New Visitor</Button>*/}
           </div>
         </header>
@@ -122,7 +121,7 @@ export default function ReceivedImports() {
                 {/* make sure the titles are aligned well */}
                 <tr>
                   <th scope="col" className="th-primary">
-                    FLIGHT NO.
+                    CLEARING COMPANY
                   </th>
                   <th scope="col" className="th-primary"> 
                     NO. OF PIECES
@@ -131,11 +130,11 @@ export default function ReceivedImports() {
                     WEIGHT
                   </th>
                   <th scope="col" className="th-primary">
-                    RECEIVED BY
+                    DELIVERED BY
                   </th>
-                  <th scope="col" className="th-primary text-right">
-                    ACTION
-                  </th> 
+                  <th scope="col" className="th-primary">
+                    DELIVERED AT
+                  </th>
    
                 </tr>
               </Thead>
@@ -144,14 +143,11 @@ export default function ReceivedImports() {
                   received &&
                   received.map((item) => (
                     <tr key={item?.id} className="border-b">
-                      <td>{item?.flight_number}</td>
+                      <td>{item?.clearing_company}</td>
                       <td>{item?.no_of_pieces}</td>
                       <td>{item?.weight}</td>
                       <td>{item?.created_by?.first_name} {item?.created_by?.last_name}</td>                      
-                      <td>{new Date(item?.created_at).toLocaleString()}</td>
-                       <td className="text-right">
-                        <DeliverImportModal item={item} />
-                      </td>  
+                      <td>{new Date(item?.created_at).toLocaleString()}</td> 
      
                     </tr>
                   ))}
