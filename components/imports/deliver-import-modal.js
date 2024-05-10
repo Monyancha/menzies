@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import store from "../../src/store/Store";
 import Link from "next/link";
 import { getLists } from "../../src/store/cargo/cargo-slice";
+import { useRouter } from "next/router";
 
 function DeliverImportModal() {
   const { data: session, status } = useSession();
@@ -17,6 +18,10 @@ function DeliverImportModal() {
 
 
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const visitorId = router.query?.visitor_id ?? null;
+  console.log("vistotrId", visitorId)
+
   const [clearingCompany, setCompany] = useState("");
   const [pieces, setPieces] = useState("");
   const [weight, setWeight] = useState("");
@@ -83,7 +88,7 @@ function DeliverImportModal() {
     setAgent("");
     setWeight("");
     setNid("");
-    setAction("");
+    // setAction("");
     setRemarks("");
     setPieces("");
     // setForm("");
@@ -91,15 +96,6 @@ function DeliverImportModal() {
 
   const  handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!clearingCompany) {
-      showNotification({
-        title: "Error",
-        message: "Clearing Company is required!",
-        color: "red",
-      });
-      return;
-    }
 
     if (!pieces) {
       showNotification({
@@ -119,23 +115,6 @@ function DeliverImportModal() {
       return;
     }
 
-    if (!agentName) {
-      showNotification({
-        title: "Error",
-        message: "Agent Name is required!",
-        color: "red",
-      });
-      return;
-    }
-
-    if (!nid) {
-      showNotification({
-        title: "Error",
-        message: "National ID Number is required!",
-        color: "red",
-      });
-      return;
-    }
 
     if (!remarks) {
       showNotification({
@@ -150,6 +129,7 @@ function DeliverImportModal() {
 
 
     const formData = new FormData();
+    formData.append("visitor_id", visitorId);    
     formData.append("clearing_company", clearingCompany);
     formData.append("no_of_pieces", pieces);
     if (weight) formData.append("weight", weight);
@@ -185,7 +165,7 @@ function DeliverImportModal() {
       if (response.status === 200) {
         showNotification({
           title: "Success",
-          message: "Receive import successful!",
+          message: "Import delivery successful!",
           color: "green",
         });
         clearForm();
@@ -218,19 +198,19 @@ function DeliverImportModal() {
     <>
       <Modal
         opened={opened}
-        title="Receive Import"
+        title="Deliver Import"
         onClose={() => setOpened(false)}
         padding="xs"
         overflow="inside"
       >
  
-        <TextInput
+        {/*<TextInput
             placeholder="Clearing Company"
             label="Clearing Company"
             withAsterisk
             value={clearingCompany}
             onChange={(e) => setCompany(e.currentTarget.value)}
-          />
+          />*/}
 
         <TextInput
             placeholder="No. of Pieces"
@@ -249,7 +229,7 @@ function DeliverImportModal() {
             onChange={(e) => setWeight(e.currentTarget.value)}
           />
 
-          <TextInput
+          {/*<TextInput
             placeholder="Agent Name"
             label="Agent Name"
             withAsterisk
@@ -263,7 +243,7 @@ function DeliverImportModal() {
             withAsterisk
             value={nid}
             onChange={(e) => setNid(e.currentTarget.value)}
-          />
+          />*/}
 
           <Textarea
             placeholder="Remarks"

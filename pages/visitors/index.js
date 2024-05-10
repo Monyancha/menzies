@@ -160,6 +160,9 @@ export default function Visitors() {
                   <th scope="col" className="th-primary">
                     ID NUMBER
                   </th> 
+                  <th scope="col" className="th-primary">
+                    VISITS
+                  </th> 
                   <th scope="col" className="th-primary text-right">
                     ACTION
                   </th>
@@ -175,6 +178,7 @@ export default function Visitors() {
                       <td>{item?.first_name} {item?.last_name}</td>
                       <td>{item?.phone_number}</td>
                       <td>{item?.id_no}</td>
+                      <td>{item?.visits.length}</td>
                       
                       <td className="py-0 pl-14 2xl:pl-4">
                         <span className="flex justify-end items-center w-full gap-2">

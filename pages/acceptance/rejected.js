@@ -29,9 +29,9 @@ import {
 } from "../../lib/shared/data-formatters";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { getAccepted, getDashboard } from "../../src/store/cargo/cargo-slice";
+import { getLists, getDashboard } from "../../src/store/cargo/cargo-slice";
 import DashboardCard from "../../components/dashboard/dashboard-card";
-// import AddStaffModal from "../../components/users/add-staff-modal";
+import AcceptCargoModal from "../../components/acceptance/accept-cargo-modal";
 
 const BCrumb = [
   {
@@ -51,9 +51,9 @@ export default function Rejected() {
   const [searchTerm, setSearchTerm] = useState("");
 
   const itemStatus = useSelector(
-    (state) => state.cargo.getAcceptedStatus
+    (state) => state.cargo.getListsStatus
   );
-  const items = useSelector((state) => state.cargo.getAccepted);
+  const items = useSelector((state) => state.cargo.getLists);
 
   const isLoading = itemStatus === "loading";
 
@@ -69,9 +69,7 @@ export default function Rejected() {
       params["filter"] = searchTerm;
     }
 
-    console.log("am here");
-
-    store.dispatch(getAccepted(params));
+    store.dispatch(getLists(params));
   }, [session, status, searchTerm]);
 
   function onPaginationLinkClicked(page) {
@@ -86,8 +84,12 @@ export default function Rejected() {
       params["filter"] = searchTerm;
     }
 
-    store.dispatch(getAccepted(params));
+    store.dispatch(getLists(params));
   }
+
+
+  const rejected = items?.lists?.rejectedCargo;
+
    useEffect(() => {
       if (!session || status !== "authenticated") {
         return;
@@ -150,7 +152,10 @@ export default function Rejected() {
                   SHIPPER NAME
                   </th>
                   <th scope="col" className="th-primary"> 
-                    ACCEPTED ON
+                    REJECTED BY
+                  </th>
+                  <th scope="col" className="th-primary"> 
+                    REJECTED ON
                   </th>
                 </tr>
               </Thead>
@@ -158,22 +163,20 @@ export default function Rejected() {
                 {!isLoading &&
                   items &&
                   // items?.data?.map((item) => ( //After pagination use this
-                  items?.map((item) => (
+                  rejected?.map((item) => (
                     <tr key={item?.id} className="border-b" >
                       <td>
-                        {item?.cargo.type_id === 0 && "Unknown"}
-                        {item?.cargo.type_id === 1 && "Known"}
-                        {item?.cargo.type_id === 3 && "General"}
+                        {item?.type_id === 0 && "Known"}
+                        {item?.type_id === 1 && "Unknown"}
+                        {item?.type_id === 2 && "General"}
                       </td>
-                      <td>{item?.cargo.shipper_name}</td>
+                      <td>{item?.shipper_name}</td>
                       <td>{item?.created_by.first_name} {item?.created_by.last_name}</td>
                        <td>{new Date(item?.created_at).toLocaleString()}</td>
                       
                       <td className="text-right"> 
                         
-                          <Button size="xs" variant="outline">
-                            Accept
-                          </Button>
+                          <AcceptCargoModal item={item} />
                         
                       </td>
                     </tr>

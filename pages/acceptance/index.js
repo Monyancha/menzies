@@ -8,7 +8,7 @@ import {
   Thead,
   Trow,
 } from "../../components/ui/layouts/scrolling-table";
-import { Badge, Button } from "@mantine/core";
+import { Badge, Button, Group  } from "@mantine/core";
 import Card from "../../components/ui/layouts/card";
 import TableCardHeader from "../../components/ui/layouts/table-card-header";
 import { IconPlus } from "@tabler/icons-react";
@@ -31,6 +31,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { getAcceptance, getDashboard } from "../../src/store/cargo/cargo-slice";
 import AcceptCargoModal from "../../components/acceptance/accept-cargo-modal";
+import RejectCargoModal from "../../components/acceptance/reject-cargo-modal";
 import DashboardCard from "../../components/dashboard/dashboard-card";
 
 const BCrumb = [
@@ -179,9 +180,11 @@ export default function Acceptance() {
                        <td>{new Date(item?.created_at).toLocaleString()}</td>
                       
                       <td className="text-right"> 
+                      <Group spacing="xs">
                         
                            <AcceptCargoModal item={item} />
-                        
+                           <RejectCargoModal item={item} />
+                      </Group>  
                       </td>
                     </tr>
                    ))}

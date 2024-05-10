@@ -121,7 +121,7 @@ export default function ReceivedImports() {
                 {/* make sure the titles are aligned well */}
                 <tr>
                   <th scope="col" className="th-primary">
-                    CLEARING COMPANY
+                    AGENT NAME
                   </th>
                   <th scope="col" className="th-primary"> 
                     NO. OF PIECES
@@ -133,7 +133,7 @@ export default function ReceivedImports() {
                     DELIVERED BY
                   </th>
                   <th scope="col" className="th-primary">
-                    DELIVERED AT
+                    DELIVERED ON
                   </th>
    
                 </tr>
@@ -143,7 +143,7 @@ export default function ReceivedImports() {
                   received &&
                   received.map((item) => (
                     <tr key={item?.id} className="border-b">
-                      <td>{item?.clearing_company}</td>
+                      <td>{item?.agent?.first_name} {item?.agent?.last_name}</td>
                       <td>{item?.no_of_pieces}</td>
                       <td>{item?.weight}</td>
                       <td>{item?.created_by?.first_name} {item?.created_by?.last_name}</td>                      

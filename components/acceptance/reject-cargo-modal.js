@@ -11,9 +11,9 @@ import { useDispatch, useSelector } from "react-redux";
 import store from "../../src/store/Store";
 import Link from "next/link";
 import classes from './CheckboxCard.module.css';
-import { getAcceptance } from "../../src/store/cargo/cargo-slice";
+import { getLists, getDashboard } from "../../src/store/cargo/cargo-slice";
 
-function AcceptCargoModal({item}) {
+function RejectCargoModal({item}) {
   const { data: session, status } = useSession();
   const [opened, setOpened] = useState(false);
 
@@ -127,7 +127,7 @@ const [csdImage, setCsdImage] = useState(null);
 
     try {
       const API_URL = process.env.NEXT_PUBLIC_API_URL;
-      const endpoint = `${API_URL}/store-acceptance`;
+      const endpoint = `${API_URL}/store-rejected`;
 
       const accessToken = session.user.accessToken;
 
@@ -152,7 +152,7 @@ const [csdImage, setCsdImage] = useState(null);
       if (response.status === 200) {
         showNotification({
           title: "Success",
-          message: "Cargo Acceptance successful!",
+          message: "Cargo rejection successful!",
           color: "green",
         });
       clearForm();
@@ -160,7 +160,8 @@ const [csdImage, setCsdImage] = useState(null);
       setOpened(false);
       const params = {};
       params["accessToken"] = accessToken;
-      store.dispatch(getAcceptance(params));
+      store.dispatch(getLists(params));
+      store.dispatch(getDashboard(params));       
       } else {
         showNotification({
           title: "Error",
@@ -185,7 +186,7 @@ const [csdImage, setCsdImage] = useState(null);
     <>
       <Modal
         opened={opened}
-        title="Accept Cargo"
+        title="Reject Cargo"
         onClose={() => setOpened(false)}
         padding="xs"
         overflow="inside"
@@ -280,13 +281,13 @@ const [csdImage, setCsdImage] = useState(null);
         variant="outline"
         onClick={() => setOpened(true)}
         size="xs"
-        color="green"
+        color="blue"
       >
-        Accept
+        Reject
       </Button>
 
     </>
   );
 }
 
-export default AcceptCargoModal;
+export default RejectCargoModal;

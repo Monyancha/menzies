@@ -168,7 +168,12 @@ const [userImage, setUserImage] = useState(null);
         });
         // clearForm();
         setLoading(false);
-        router.push("/visitors");
+        if(visitType == 4)
+        {
+          router.push(`/imports/receivedimports?visitor_id=${visitorId}`);
+        }else{
+        router.push("/visitors");          
+        }
       } else {
         showNotification({
           title: "Error",

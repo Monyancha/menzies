@@ -32,6 +32,7 @@ import { useRouter } from "next/router";
 import { getDashboard, getLists } from "../../src/store/cargo/cargo-slice";
 import DashboardCard from "../../components/dashboard/dashboard-card";
 import { showNotification } from "@mantine/notifications"; //Import mantine notifications
+import MoreCargoModal from "../../components/cargo/more-cargo-modal";
 
 const BCrumb = [
   {
@@ -232,16 +233,16 @@ export default function Cargo() {
                 {/* make sure the titles are aligned well */}
                 <tr>
                   <th scope="col" className="th-primary">
-                    CARGO TYPE
-                  </th>
-                  <th scope="col" className="th-primary">
-                  NO. OF AWBs
+                    DATE
                   </th>
                   <th scope="col" className="th-primary"> 
                     SHIPPER NAME
                   </th>
+                  <th scope="col" className="th-primary"> 
+                    DRIVER DETAILS
+                  </th>
                   <th scope="col" className="th-primary">
-                    ORIGIN
+                    AWB
                   </th>
                   <th scope="col" className="th-primary">
                     DESTINATION
@@ -258,22 +259,20 @@ export default function Cargo() {
                   cargoitems?.map((item) => (
                     <tr key={item?.id} className="border-b" >
                       <td>
-                        {item?.type_id === 0 && "Known"}
-                        {item?.type_id === 1 && "Unknown"}
-                        {item?.type_id === 2 && "General"}
+                        {item?.updated_at}
                       </td>
-                      <td>{item?.awbs?.length}</td>
                       <td>{item?.shipper_name}</td>
-                      <td>{item?.origin || "N/A"}</td>
+                      <td>{item?.first_name} {item?.last_name} - {item?.phone_number}</td>
+                      <td>{item?.number || "N/A"}</td>
                       <td>{item?.destination || "N/A"}</td>
                       
-                      <td className="text-right"> 
-                        
-                          <Button loading={pdfLoading[item.id]} onClick={() => downloadCargo(item?.id)} size="xs" variant="outline">
-                            Download
-                          </Button>
-                        
+                      <td className="flex justify-end items-center space-x-2">
+                        <MoreCargoModal item={item} />
+                        <Button loading={pdfLoading[item.id]} onClick={() => downloadCargo(item?.id)} size="xs" variant="outline">
+                          Download
+                        </Button>
                       </td>
+
                     </tr>
                    ))}
               </tbody>

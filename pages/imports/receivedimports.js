@@ -133,6 +133,9 @@ export default function ReceivedImports() {
                   <th scope="col" className="th-primary">
                     RECEIVED BY
                   </th>
+                   <th scope="col" className="th-primary">
+                    RECEIVED ON
+                  </th>
                   <th scope="col" className="th-primary text-right">
                     ACTION
                   </th> 
@@ -147,7 +150,7 @@ export default function ReceivedImports() {
                       <td>{item?.flight_number}</td>
                       <td>{item?.no_of_pieces}</td>
                       <td>{item?.weight}</td>
-                      <td>{item?.created_by?.first_name} {item?.created_by?.last_name}</td>                      
+                      <td>{item?.created_by?.first_name} {item?.created_by?.last_name}</td> 
                       <td>{new Date(item?.created_at).toLocaleString()}</td>
                        <td className="text-right">
                         <DeliverImportModal item={item} />

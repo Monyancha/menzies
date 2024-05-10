@@ -18,20 +18,22 @@ import {
   Avatar,
 } from "@mui/material";
 
-function MoreVisitorModal({item}) {
+function MoreCargoModal({item}) {
   const { data: session, status } = useSession();
   const [opened, setOpened] = useState(false);
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
+  const driverName = item?.first_name + " " + item?.last_name;
+
   const [loading, setLoading] = useState(false);
-  const [fname, setFName] = useState(item?.first_name ?? "");
-  const [lname, setLName] = useState(item?.last_name ?? "");
-  const [email, setEmail] = useState(item?.email ?? "");
-  const [phone, setPhone] = useState(item?.phone_number ?? "");
-  const [nid, setNId] = useState(item?.id_no ?? "");
+  const [date, setDate] = useState(item?.updated_at ?? "");
+  const [shipper, setShipper] = useState(item?.shipper_name ?? "N/A");
+  const [driver, setDriver] = useState(driverName ?? "N/A");
+  const [origin, setOrigin] = useState(item?.origin ?? "N/A");
+  const [destination, setDestination] = useState(item?.destination ?? "N/A");
   const [idImage, setIdImage] = useState(item?.id_image ?? "");
   const [userImage, setUserImage] = useState(item?.user_image ?? "");
-  const [visitsNo, setVisitsNo] = useState(item?.visits.length ?? "");
+  const [awb, setAwb] = useState(item?.number ?? "");
 
   function clearForm() {
     setFName("");
@@ -151,49 +153,36 @@ function MoreVisitorModal({item}) {
     <>
       <Modal
         opened={opened}
-        title="Visitor Details"
+        title="Cargo Details"
         onClose={() => setOpened(false)}
         padding="xs"
         overflow="inside"
       >
  
           <Typography color="textSecondary" mb={3}>
-            FULL NAME: <Typography component="span" fontWeight={700}>{fname} {lname}</Typography>
+            DATE: <Typography component="span" fontWeight={700}>{date}</Typography>
           </Typography>
 
           <Typography color="textSecondary" mb={3}>
-            {email} 
+            SHIPPER NAME: <Typography component="span" fontWeight={700}>{shipper}</Typography>
           </Typography>
 
           <Typography color="textSecondary" mb={3}>
-            PHONE NUMBER: <Typography component="span" fontWeight={700}>{phone}</Typography>
+            DRIVER NAME: <Typography component="span" fontWeight={700}>{driver}</Typography>
           </Typography>
 
           <Typography color="textSecondary" mb={3}>
-            NATIONAL ID NUMBER: <Typography component="span" fontWeight={700}>{nid}</Typography>
+            AWB NUMBER: <Typography component="span" fontWeight={700}>{awb}</Typography>
           </Typography>
 
           <Typography color="textSecondary" mb={3}>
-            NO. OF VISITS: <Typography component="span" fontWeight={700}>{visitsNo}</Typography>
+            ORIGIN: <Typography component="span" fontWeight={700}>{origin}</Typography>
           </Typography>
 
-         <Typography color="textSecondary" mb={1} align="center">
-            <Typography component="span" fontWeight={700}>NATIONAL ID IMAGE</Typography>
-          </Typography>
-          <Image
-            src={`${API_URL}/id_documents/${idImage}`}
-            alt="National ID image"
-            title="NATIONAL ID IMAGE"
-          />
+          <Typography color="textSecondary" mb={3}>
+            DESTINATION: <Typography component="span" fontWeight={700}>{destination}</Typography>
+          </Typography>          
 
-          <Typography color="textSecondary" mb={1} align="center">
-            <Typography component="span" fontWeight={700}>USER IMAGE</Typography>
-          </Typography>
-          <Image
-            src={`${API_URL}/user_images/${userImage}`}
-            alt="User image"
-            title="USER IMAGE"
-          />
 
 
         {/*<section className="flex justify-end space-y-2 p-3 rounded-lg my-3">
@@ -217,4 +206,4 @@ function MoreVisitorModal({item}) {
   );
 }
 
-export default MoreVisitorModal;
+export default MoreCargoModal;

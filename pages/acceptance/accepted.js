@@ -31,7 +31,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { getAccepted, getDashboard } from "../../src/store/cargo/cargo-slice";
 import DashboardCard from "../../components/dashboard/dashboard-card";
-// import AddStaffModal from "../../components/users/add-staff-modal";
+import MoreAcceptedModal from "../../components/acceptance/more-accepted-modal";
 
 const BCrumb = [
   {
@@ -157,6 +157,9 @@ export default function Accepted() {
                   <th scope="col" className="th-primary"> 
                     ACCEPTED ON
                   </th>
+                  <th scope="col" className="th-primary text-right">
+                    ACTION
+                  </th>
                 </tr>
               </Thead>
               <tbody>
@@ -173,7 +176,13 @@ export default function Accepted() {
                       <td>{item?.shipper_name}</td>
                       <td>{item?.created_by.first_name} {item?.created_by.last_name}</td>
                        <td>{new Date(item?.created_at).toLocaleString()}</td>
-                      
+                      <td className="py-0 pl-14 2xl:pl-4">
+                        <span className="flex justify-end items-center w-full gap-2">
+
+                          <MoreAcceptedModal item={item} />
+
+                        </span>
+                      </td>
                     </tr>
                    ))}
               </tbody>
